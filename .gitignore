@@ -2,3 +2,5 @@
 node_modules/
 __MACOSX/
 node_modules
+src/js/config.js
+forkify.json
