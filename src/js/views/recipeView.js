@@ -1,5 +1,8 @@
 import { elements } from './base';
 
+export const clearRecipe = () => {
+    elements.recipe.innerHTML = '';
+};
 const createIngredient = ingredient => `
     <li class="recipe__item">
         <svg class="recipe__icon">
@@ -7,7 +10,7 @@ const createIngredient = ingredient => `
         </svg>
         <div class="recipe__count">${ingredient.count}</div>
         <div class="recipe__ingredient">
-            <span class="recipe__unit">${ingredients.unit}</span>
+            <span class="recipe__unit">${ingredient.unit}</span>
             ${ingredient.ingredient}
         </div>
     </li>
