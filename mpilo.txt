@@ -1,0 +1,3 @@
+git branch my-temporary-work
+git checkout master
+git merge my-temporary-work
