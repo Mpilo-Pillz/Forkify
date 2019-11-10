@@ -19,7 +19,7 @@ export const highlightSelected = id => {
         el.classList.remove('results__link--active');
     });
 
-    document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+    document.querySelector(`.results__link[href*="#${id}"]`).classList.add('results__link--active');
 };
 
 /*
@@ -35,7 +35,7 @@ acc:
 
 //split(' ') sparates wrd in a sentence and adds them to an array after every space
 //join(' ') is te opposite it adds words in a array truns them into a sting (sentence) separated by a space
-const limitRecipeTitle = (title, limit = 17) => {
+export const limitRecipeTitle = (title, limit = 17) => {
     const newTitle = [];
     if (title.length > limit) {
         title.split(' ').reduce((accumilator, current) => {

@@ -5,6 +5,7 @@ import Likes from './models/Likes';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import * as listView from './views/listView';
+import * as likesView from './views/likesView';
 import {
     elements,
     renderLoader,
@@ -53,6 +54,7 @@ const controlSearch = async () => {
             searchView.renderReults(state.search.result);
             // console.log(state.search.result);
         } catch (err) {
+            console.log(err);
             alert('Something is wrong with the search...');
             clearLoader();
         }
@@ -119,9 +121,13 @@ const controlRecipe = async () => {
 
             //render recipe
             clearLoader();
-            recipeView.renderRecipe(state.recipe)
-            console.log(state.recipe);
+            recipeView.renderRecipe(
+                state.recipe,
+                state.likes.isLiked(id)
+                );
+            // console.log(state.recipe);
         } catch (err) {
+            console.log(err);
             alert('Error processing recipe');
         }
 
@@ -170,6 +176,8 @@ elements.shopping.addEventListener('click', e => {
 /** 
  * LIKE CONTROLLER
  */
+state.likes = new Likes();
+likesView.toggleLikeMenu(state.likes.getNumLikes());
 const controlLike = () => {
     if (!state.likes) state.likes = new Likes();
     const currentID = state.recipe.id;
@@ -184,9 +192,10 @@ const controlLike = () => {
             state.recipe.img
         );
         // toggle the like button
-
+            likesView.toggleLikeBtn(true);
         // Add like to the UI list
-        console.log(state.likes);
+        likesView.renderLike(newLike);
+        // console.log(state.likes);
 
         // user HAS liked current recipe
     } else {
@@ -194,11 +203,14 @@ const controlLike = () => {
         state.likes.deleteLike(currentID);
 
         // Toggle the like button
+        likesView.toggleLikeBtn(false);
 
         // Remove like from UI list
-        console.log(state.likes);
+        likesView.deleteLike(currentID);
+        // console.log(state.likes);
 
     }
+    likesView.toggleLikeMenu(state.likes.getNumLikes());
 };
  
 
