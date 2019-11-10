@@ -22,7 +22,7 @@ import {
  */
 
 const state = {};
-window.state = state;
+// window.state = state;
 
 /** 
  * SEARCH CONTROLLER
@@ -31,7 +31,7 @@ const controlSearch = async () => {
     // 1. Get Query frm the View
     // const query = 'pizza'; //TODO
     const query = searchView.getInput();
-    console.log(query);
+    // console.log(query);
 
     if (query) {
         // 2) New search object and add to state
@@ -95,7 +95,7 @@ elements.searchResPages.addEventListener('click', e => {
 const controlRecipe = async () => {
     //Get ID from url
     const id = window.location.hash.replace('#', '');
-    console.log(id);
+    // console.log(id);
 
     if (id) {
         //Prepare URL for changes
@@ -253,7 +253,7 @@ elements.recipe.addEventListener('click', e => {
     
 });
 
-window.l = new List();
+// window.l = new List();
 
 
 
