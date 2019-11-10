@@ -1,6 +1,7 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import List from './models/List';
+import Likes from './models/Likes';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import * as listView from './views/listView';
@@ -9,6 +10,7 @@ import {
     renderLoader,
     clearLoader
 } from './views/base';
+// import Likes from './models/Likes';
 // import { stat } from 'fs';
 
 /**Global state of the app
@@ -134,6 +136,7 @@ const controlRecipe = async () => {
 /** 
  * LIST CONTROLLER
  */
+
 const controlList = () => {
     //Create a new List if there is none yet
     if(!state.list) state.list = new List();
@@ -164,6 +167,41 @@ elements.shopping.addEventListener('click', e => {
     }
 });
 
+/** 
+ * LIKE CONTROLLER
+ */
+const controlLike = () => {
+    if (!state.likes) state.likes = new Likes();
+    const currentID = state.recipe.id;
+
+    //user has NOT yet liked current recipe
+    if (!state.likes.isLiked(currentID)) {
+        // Add like to the state
+        const newLike = state.likes.addLike(
+            currentID,
+            state.recipe.title,
+            state.recipe.author,
+            state.recipe.img
+        );
+        // toggle the like button
+
+        // Add like to the UI list
+        console.log(state.likes);
+
+        // user HAS liked current recipe
+    } else {
+        // Remove like from the state
+        state.likes.deleteLike(currentID);
+
+        // Toggle the like button
+
+        // Remove like from UI list
+        console.log(state.likes);
+
+    }
+};
+ 
+
 // Handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
     if (e.target.matches('.btn-decrease, .btn-decrease *')) {
@@ -178,7 +216,11 @@ elements.recipe.addEventListener('click', e => {
         state.recipe.updateServings('inc');
         recipeView.updateServingsIngredient(state.recipe);
     } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+        //ADD INGREDIENTS TO SHOPPING LIST
         controlList()
+    } else if(e.target.matches('.recipe__love, .recipe__love *')) {
+        // Like controller
+        controlLike();
     }
     // console.log(state.recipe);
     
